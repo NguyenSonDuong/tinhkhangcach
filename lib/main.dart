@@ -54,6 +54,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
   double _counter = 0;
+  double _counterkm = 0;
   final stopwatch = Stopwatch();
   double time = 0;
   double lat = 0.0; 
@@ -120,6 +121,7 @@ Future<Position> _determinePosition() async {
       this.totalSize+= (lat==0 || lon==0) ? 0 : Geolocator.distanceBetween(lat,lon,position.latitude,position.longitude);
       this.totalTime+=time;
       _counter = double.parse((Geolocator.distanceBetween(lat,lon,position.latitude,position.longitude)/time).toStringAsFixed(3));
+      this._counterkm = _counter*3.6;
       lat = position.latitude; 
       lon = position.longitude;
     });
@@ -179,12 +181,15 @@ Future<Position> _determinePosition() async {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
             Text(
               '$_counter m/s',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headline5,
+
+            ),
+            Text(
+              '$_counterkm km/h',
+              style: Theme.of(context).textTheme.headline5,
+
             ),
             Text(
               '$totalTime sec',
