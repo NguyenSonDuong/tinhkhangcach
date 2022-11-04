@@ -54,7 +54,13 @@ class _MyHomePageState extends State<MyHomePage> {
   final GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
   double _counter = 0;
   var android = AndroidSettings();
-  var ios = AppleSettings();
+  var ios = AppleSettings(
+    accuracy: LocationAccuracy.high,
+    activityType: ActivityType.fitness,
+    distanceFilter: 100,
+    pauseLocationUpdatesAutomatically: true,
+    // Only set to true if our app will be started up in the background.
+    showBackgroundLocationIndicator: false,);
 
   @override
   void initState() {
@@ -101,7 +107,7 @@ Future<Position> _determinePosition() async {
   Geolocator.getPositionStream(locationSettings: settings).listen((Position? position) {
     print(position == null ? 'Unknown' : '${position.latitude.toString()}, ${position.longitude.toString()}');
     setState(() {
-      _counter = position.speed;
+      _counter = position.latitude;
     });
   });
   // When we reach here, permissions are granted and we can
