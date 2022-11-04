@@ -73,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 void _requestTemporaryFullAccuracy() async {
     final status = await _geolocatorPlatform.requestTemporaryFullAccuracy(
-      purposeKey: "TemporaryPreciseAccuracy",
+      purposeKey: "kit502",
     );
     _handleLocationAccuracyStatus(status);
   }
