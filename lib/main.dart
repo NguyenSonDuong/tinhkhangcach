@@ -121,7 +121,7 @@ Future<Position> _determinePosition() async {
       this.totalSize+= (lat==0 || lon==0) ? 0 : Geolocator.distanceBetween(lat,lon,position.latitude,position.longitude);
       this.totalTime+=time;
       _counter = double.parse((Geolocator.distanceBetween(lat,lon,position.latitude,position.longitude)/time).toStringAsFixed(3));
-      this._counterkm = _counter*3.6;
+      this._counterkm = double.parse((_counter*3.6).toStringAsFixed(3));
       lat = position.latitude; 
       lon = position.longitude;
     });
