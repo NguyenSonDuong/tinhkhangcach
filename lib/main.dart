@@ -188,7 +188,7 @@ Future<Position> _determinePosition() async {
             ),
             Text(
               '$_counterkm km/h',
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headline2,
 
             ),
             Text(
