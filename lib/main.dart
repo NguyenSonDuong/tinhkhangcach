@@ -98,9 +98,10 @@ Future<Position> _determinePosition() async {
       'Location permissions are permanently denied, we cannot request permissions.');
   } 
   var settings = Platform.isIOS ? ios : android;
-  Geolocator.getPositionStream(locationSettings: settings).listen((event) {
+  Geolocator.getPositionStream(locationSettings: settings).listen((Position? position) {
+    print(position == null ? 'Unknown' : '${position.latitude.toString()}, ${position.longitude.toString()}');
     setState(() {
-      _counter = event.speed;
+      _counter = position.speed;
     });
   });
   // When we reach here, permissions are granted and we can
