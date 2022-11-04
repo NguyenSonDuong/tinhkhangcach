@@ -52,8 +52,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
-  bool serviceEnabled;
-  LocationPermission permission;
   double _counter = 0;
   var android = AndroidSettings();
   var ios = AppleSettings();
