@@ -66,7 +66,27 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _incrementCounter() {
-    requestTemporaryFullAccuracy({purposeKey: "kit502"})
+    _requestTemporaryFullAccuracy();
+  }
+
+
+void _requestTemporaryFullAccuracy() async {
+    final status = await _geolocatorPlatform.requestTemporaryFullAccuracy(
+      purposeKey: "TemporaryPreciseAccuracy",
+    );
+    _handleLocationAccuracyStatus(status);
+  }
+
+  void _handleLocationAccuracyStatus(LocationAccuracyStatus status) {
+    String locationAccuracyStatusValue;
+    if (status == LocationAccuracyStatus.precise) {
+      locationAccuracyStatusValue = 'Precise';
+    } else if (status == LocationAccuracyStatus.reduced) {
+      locationAccuracyStatusValue = 'Reduced';
+    } else {
+      locationAccuracyStatusValue = 'Unknown';
+    }
+    print(locationAccuracyStatusValue);
   }
 
   @override
