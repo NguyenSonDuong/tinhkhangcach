@@ -57,7 +57,10 @@ class _MyHomePageState extends State<MyHomePage> {
   final stopwatch = Stopwatch();
   double time = 0;
   double lat = 0.0; 
-  double lon = 0.0; 
+  double lon = 0.0;
+
+  double totalSize = 0;
+  double totalTime = 0;
 
   var android = AndroidSettings();
   var ios = AppleSettings(
@@ -114,6 +117,8 @@ Future<Position> _determinePosition() async {
     stopwatch.stop();
     setState(() {
       time = stopwatch.elapsedMilliseconds/1000.0;
+      this.totalSize+= Geolocator.distanceBetween(lat,lon,position.latitude,position.longitude);
+      this.totalTime+=time;
       _counter = double.parse((Geolocator.distanceBetween(lat,lon,position.latitude,position.longitude)/time).toStringAsFixed(3));
       lat = position.latitude; 
       lon = position.longitude;
@@ -178,9 +183,17 @@ Future<Position> _determinePosition() async {
               'You have pushed the button this many times:',
             ),
             Text(
-              '$_counter',
+              '$_counter m/s',
               style: Theme.of(context).textTheme.headline4,
             ),
+            Text(
+              '$totalTime sec',
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            Text(
+              '$totalSize m',
+              style: Theme.of(context).textTheme.bodyMedium,
+            )
           ],
         ),
       ),
