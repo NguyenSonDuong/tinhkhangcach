@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 void main() {
   runApp(const MyApp());
@@ -48,7 +51,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  double _counter = 0;
+  var android = AndroidSettings();
+  var ios = AppleSettings();
+
+  @override
+  void initState() {
+    var settings = Platform.isIOS ? ios : android;
+    Geolocator.getPositionStream(locationSettings: settings).listen((event) {
+      setState(() {
+        _counter = event.speed;
+      });
+    });
+  }
 
   void _incrementCounter() {
     setState(() {
