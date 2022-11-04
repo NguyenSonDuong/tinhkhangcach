@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
   double _counter = 0;
   final stopwatch = Stopwatch();
-  int time = 0;
+  double time = 0;
   double lat = 0.0; 
   double lon = 0.0; 
 
