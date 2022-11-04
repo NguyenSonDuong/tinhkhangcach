@@ -124,7 +124,7 @@ Future<Position> _determinePosition() async {
   // When we reach here, permissions are granted and we can
   // continue accessing the position of the device.
 
-  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
+  
 
   return await Geolocator.getCurrentPosition();
 }
