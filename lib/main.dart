@@ -117,7 +117,7 @@ Future<Position> _determinePosition() async {
     stopwatch.stop();
     setState(() {
       time = stopwatch.elapsedMilliseconds/1000.0;
-      this.totalSize+= Geolocator.distanceBetween(lat,lon,position.latitude,position.longitude);
+      this.totalSize+= (lat==0 || lon==0) ? 0 : Geolocator.distanceBetween(lat,lon,position.latitude,position.longitude);
       this.totalTime+=time;
       _counter = double.parse((Geolocator.distanceBetween(lat,lon,position.latitude,position.longitude)/time).toStringAsFixed(3));
       lat = position.latitude; 
