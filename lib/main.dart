@@ -113,7 +113,7 @@ Future<Position> _determinePosition() async {
   Geolocator.getPositionStream(locationSettings: settings).listen((position) {
     stopwatch.stop();
     setState(() {
-      time = stopwatch.elapsedMilliseconds/1000;
+      time = stopwatch.elapsedMilliseconds/1000.0;
       _counter = double.parse((Geolocator.distanceBetween(lat,lon,position.latitude,position.longitude)/time).toStringAsFixed(3));
       lat = position.latitude; 
       lon = position.longitude;
