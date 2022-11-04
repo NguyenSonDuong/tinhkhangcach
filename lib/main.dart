@@ -58,12 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    var settings = Platform.isIOS ? ios : android;
-    Geolocator.getPositionStream(locationSettings: settings).listen((event) {
-      setState(() {
-        _counter = event.speed;
-      });
-    });
+    
   }
 
   void _incrementCounter() {
@@ -102,7 +97,12 @@ Future<Position> _determinePosition() async {
     return Future.error(
       'Location permissions are permanently denied, we cannot request permissions.');
   } 
-
+  var settings = Platform.isIOS ? ios : android;
+  Geolocator.getPositionStream(locationSettings: settings).listen((event) {
+    setState(() {
+      _counter = event.speed;
+    });
+  });
   // When we reach here, permissions are granted and we can
   // continue accessing the position of the device.
   return await Geolocator.getCurrentPosition();
