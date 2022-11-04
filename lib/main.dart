@@ -54,7 +54,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final GeolocatorPlatform _geolocatorPlatform = GeolocatorPlatform.instance;
   double _counter = 0;
-
+  final stopwatch = Stopwatch();
+  int time;
   double lat = 0.0; 
   double lon = 0.0; 
 
@@ -110,13 +111,15 @@ Future<Position> _determinePosition() async {
   } 
   var settings = Platform.isIOS ? ios : android;
   Geolocator.getPositionStream(locationSettings: settings).listen((position) {
-    
+    stopwatch.stop();
     setState(() {
-      _counter = measure(lat,lon,position.latitude,position.longitude);
+      time = stopwatch.elapsedMilliseconds;
+      _counter = Geolocator.distanceBetween(lat,lon,position.latitude,position.longitude)/time;
+      lat = position.latitude; 
+      lon = position.longitude;
     });
-
-    lat = position.latitude; 
-    lon = position.longitude;
+    stopwatch.reset();
+    stopwatch.start();
   });
   // When we reach here, permissions are granted and we can
   // continue accessing the position of the device.
@@ -133,17 +136,7 @@ Future<Position> _determinePosition() async {
     }
     print(locationAccuracyStatusValue);
   }
-  double measure(lat1, lon1, lat2, lon2){  // generally used geo measurement function
-      var R = 6378.137; // Radius of earth in KM
-      var dLat = lat2 * pi / 180 - lat1 * pi / 180;
-      var dLon = lon2 * pi / 180 - lon1 * pi / 180;
-      var a = sin(dLat/2) * sin(dLat/2) +
-      cos(lat1 * pi / 180) * cos(lat2 * pi / 180) *
-      sin(dLon/2) * sin(dLon/2);
-      var c = 2 * atan2(sqrt(a), sqrt(1-a));
-      var d = R * c;
-      return d * 1000; // meters
-  }
+  
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
