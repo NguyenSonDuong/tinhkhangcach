@@ -113,8 +113,8 @@ Future<Position> _determinePosition() async {
   Geolocator.getPositionStream(locationSettings: settings).listen((position) {
     stopwatch.stop();
     setState(() {
-      time = stopwatch.elapsedMilliseconds;
-      _counter = Geolocator.distanceBetween(lat,lon,position.latitude,position.longitude)/time;
+      time = stopwatch.elapsedMilliseconds/1000;
+      _counter = double.parse((Geolocator.distanceBetween(lat,lon,position.latitude,position.longitude)/time).toStringAsFixed(3));
       lat = position.latitude; 
       lon = position.longitude;
     });
@@ -123,6 +123,9 @@ Future<Position> _determinePosition() async {
   });
   // When we reach here, permissions are granted and we can
   // continue accessing the position of the device.
+
+  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
+
   return await Geolocator.getCurrentPosition();
 }
   void _handleLocationAccuracyStatus(LocationAccuracyStatus status) {
